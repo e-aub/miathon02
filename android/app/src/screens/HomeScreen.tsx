@@ -75,6 +75,7 @@ const PhotoScreen: React.FC = () => {
     }
 
     const formData = new FormData();
+    console.log(photo.type)
     formData.append('image', {
       uri: photo.uri,
       type: photo.type,
@@ -82,7 +83,7 @@ const PhotoScreen: React.FC = () => {
     });
 
     try {
-      const response = await axios.post('YOUR_API_ENDPOINT', formData, {
+      const response = await axios.post('http://127.0.0.1:3000/classify', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -91,6 +92,7 @@ const PhotoScreen: React.FC = () => {
     } catch (error) {
       console.error('Error uploading image:', error);
     }
+   
   };
 
   return (
@@ -101,10 +103,14 @@ const PhotoScreen: React.FC = () => {
       <TouchableOpacity style={styles.button} onPress={handleGallery}>
         <Text style={styles.buttonText}>Choose from Gallery</Text>
       </TouchableOpacity>
-      {photo && <Image source={{ uri: photo.uri }} style={styles.image} />}
-      <TouchableOpacity style={[styles.button, styles.uploadButton]} onPress={uploadImage}>
-        <Text style={styles.buttonText}>Upload Image</Text>
-      </TouchableOpacity>
+      {photo && (
+  <>
+    <Image source={{ uri: photo.uri }} style={styles.image} />
+    <TouchableOpacity style={[styles.button, styles.uploadButton]} onPress={uploadImage}>
+      <Text style={styles.buttonText}>Upload Image</Text>
+    </TouchableOpacity>
+  </>
+)}
     </View>
   );
 };
@@ -132,13 +138,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   image: {
-    width: 200,
-    height: 200,
+    width: 300, // Adjust as needed
+    height: 300, // Adjust as needed
     marginTop: 20,
     borderRadius: 10,
     borderColor: '#14967f',
     borderWidth: 2,
-  },
+  },  
   uploadButton: {
     backgroundColor: '#14967f',
   },
