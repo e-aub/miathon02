@@ -3,6 +3,7 @@ from PIL import Image, ImageOps  # Install pillow instead of PIL
 import numpy as np
 from flask import Flask, request, jsonify
 
+
 # Disable scientific notation for clarity
 np.set_printoptions(suppress=False)
 
